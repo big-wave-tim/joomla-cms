@@ -3,7 +3,7 @@
  * @package     Joomla.Administrator
  * @subpackage  com_content
  *
- * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -63,12 +63,11 @@ if (isset($this->item->attribs['show_urls_images_backend']) && $this->item->attr
 }
 
 JFactory::getDocument()->addScriptDeclaration('
-jQuery(document).ready(function() {
 	Joomla.submitbutton = function(task)
 	{
 		if (task == "article.cancel" || document.formvalidator.isValid(document.getElementById("item-form")))
 		{
-			'. $this->form->getField('articletext')->save() . '
+			' . $this->form->getField('articletext')->save() . '
 			if (window.opener && (task == "article.save" || task == "article.cancel"))
 			{
 				window.opener.document.closeEditWindow = self;
@@ -77,8 +76,8 @@ jQuery(document).ready(function() {
 
 		Joomla.submitform(task, document.getElementById("item-form"));
 		}
-	}
-});');
+	};
+');
 
 ?>
 

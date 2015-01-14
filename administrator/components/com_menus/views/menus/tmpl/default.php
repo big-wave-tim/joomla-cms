@@ -3,7 +3,7 @@
  * @package     Joomla.Administrator
  * @subpackage  com_menus
  *
- * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -28,7 +28,7 @@ $modMenuId = (int) $this->get('ModMenuId');
 JFactory::getDocument()->addScriptDeclaration("
 		Joomla.submitbutton = function(task)
 		{
-			if (task != 'menus.delete' || confirm('" .  JText::_('COM_MENUS_MENU_CONFIRM_DELETE', true) . "'))
+			if (task != 'menus.delete' || confirm('" . JText::_('COM_MENUS_MENU_CONFIRM_DELETE', true) . "'))
 			{
 				Joomla.submitform(task);
 			}
@@ -49,7 +49,7 @@ JFactory::getDocument()->addScriptDeclaration("
 				<label for="filter_search" class="element-invisible"><?php echo JText::_('COM_MENUS_MENU_SEARCH_FILTER');?></label>
 				<input type="text" name="filter_search" id="filter_search" placeholder="<?php echo JText::_('JSEARCH_FILTER'); ?>" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="hasTooltip" title="<?php echo JHtml::tooltipText('COM_MENUS_ITEMS_SEARCH_FILTER'); ?>" />
 			</div>
-			<div class="btn-group pull-left hidden-phone">
+			<div class="btn-group pull-left">
 				<button type="submit" class="btn hasTooltip" title="<?php echo JHtml::tooltipText('JSEARCH_FILTER_SUBMIT'); ?>"><i class="icon-search"></i></button>
 				<button type="button" class="btn hasTooltip" title="<?php echo JHtml::tooltipText('JSEARCH_FILTER_CLEAR'); ?>" onclick="document.getElementById('filter_search').value='';this.form.submit();"><i class="icon-remove"></i></button>
 			</div>
@@ -108,27 +108,27 @@ JFactory::getDocument()->addScriptDeclaration("
 							<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 						</td>
 						<td>
-							<a href="<?php echo JRoute::_('index.php?option=com_menus&view=items&menutype='.$item->menutype) ?> ">
+							<a href="<?php echo JRoute::_('index.php?option=com_menus&view=items&menutype=' . $item->menutype) ?> ">
 								<?php echo $this->escape($item->title); ?></a>
 							<p class="small">(<span><?php echo JText::_('COM_MENUS_MENU_MENUTYPE_LABEL') ?></span>
 								<?php if ($canEdit) : ?>
-									<?php echo '<a href="'.JRoute::_('index.php?option=com_menus&task=menu.edit&id='.$item->id).' title='.$this->escape($item->description).'">'.
-									$this->escape($item->menutype).'</a>'; ?>)
+									<?php echo '<a href="' . JRoute::_('index.php?option=com_menus&task=menu.edit&id=' . $item->id) . ' title=' . $this->escape($item->description) . '">' .
+									$this->escape($item->menutype) . '</a>'; ?>)
 								<?php else : ?>
 									<?php echo $this->escape($item->menutype)?>)
 								<?php endif; ?>
 							</p>
 						</td>
 						<td class="center btns">
-							<a class="badge badge-success" href="<?php echo JRoute::_('index.php?option=com_menus&view=items&menutype='.$item->menutype.'&filter[published]=1');?>">
+							<a class="badge badge-success" href="<?php echo JRoute::_('index.php?option=com_menus&view=items&menutype=' . $item->menutype . '&filter[published]=1');?>">
 								<?php echo $item->count_published; ?></a>
 						</td>
 						<td class="center btns">
-							<a class="badge" href="<?php echo JRoute::_('index.php?option=com_menus&view=items&menutype='.$item->menutype.'&filter[published]=0');?>">
+							<a class="badge" href="<?php echo JRoute::_('index.php?option=com_menus&view=items&menutype=' . $item->menutype . '&filter[published]=0');?>">
 								<?php echo $item->count_unpublished; ?></a>
 						</td>
 						<td class="center btns">
-							<a class="badge badge-error" href="<?php echo JRoute::_('index.php?option=com_menus&view=items&menutype='.$item->menutype.'&filter[published]=-2');?>">
+							<a class="badge badge-error" href="<?php echo JRoute::_('index.php?option=com_menus&view=items&menutype=' . $item->menutype . '&filter[published]=-2');?>">
 								<?php echo $item->count_trashed; ?></a>
 						</td>
 						<td class="left">
@@ -142,7 +142,7 @@ JFactory::getDocument()->addScriptDeclaration("
 										<?php foreach ($this->modules[$item->menutype] as &$module) : ?>
 											<li>
 												<?php if ($canEdit) : ?>
-													<a class="small modal" href="<?php echo JRoute::_('index.php?option=com_modules&task=module.edit&id='.$module->id.'&return='.$return.'&tmpl=component&layout=modal');?>" rel="{handler: 'iframe', size: {x: 1024, y: 450}, onClose: function() {window.location.reload()}}" title="<?php echo JText::_('COM_MENUS_EDIT_MODULE_SETTINGS');?>">
+													<a class="small modal" href="<?php echo JRoute::_('index.php?option=com_modules&task=module.edit&id=' . $module->id . '&return=' . $return . '&tmpl=component&layout=modal');?>" rel="{handler: 'iframe', size: {x: 1024, y: 450}, onClose: function() {window.location.reload()}}" title="<?php echo JText::_('COM_MENUS_EDIT_MODULE_SETTINGS');?>">
 													<?php echo JText::sprintf('COM_MENUS_MODULE_ACCESS_POSITION', $this->escape($module->title), $this->escape($module->access_title), $this->escape($module->position)); ?></a>
 												<?php else :?>
 													<?php echo JText::sprintf('COM_MENUS_MODULE_ACCESS_POSITION', $this->escape($module->title), $this->escape($module->access_title), $this->escape($module->position)); ?>
@@ -152,7 +152,7 @@ JFactory::getDocument()->addScriptDeclaration("
 									</ul>
 								 </div>
 							<?php elseif ($modMenuId) : ?>
-							<a href="<?php echo JRoute::_('index.php?option=com_modules&task=module.add&eid=' . $modMenuId . '&params[menutype]='.$item->menutype); ?>">
+							<a href="<?php echo JRoute::_('index.php?option=com_modules&task=module.add&eid=' . $modMenuId . '&params[menutype]=' . $item->menutype); ?>">
 								<?php echo JText::_('COM_MENUS_ADD_MENU_MODULE'); ?></a>
 							<?php endif; ?>
 						</td>

@@ -3,7 +3,7 @@
  * @package     Joomla.Administrator
  * @subpackage  com_installer
  *
- * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -89,6 +89,15 @@ class InstallerControllerUpdate extends JControllerLegacy
 		// Find updates.
 		/** @var InstallerModelUpdate $model */
 		$model = $this->getModel('update');
+
+		$disabledUpdateSites = $model->getDisabledUpdateSites();
+
+		if ($disabledUpdateSites)
+		{
+			$updateSitesUrl = JRoute::_('index.php?option=com_installer&view=updatesites');
+			$this->setMessage(JText::sprintf('COM_INSTALLER_MSG_UPDATE_SITES_COUNT_CHECK', $updateSitesUrl), 'warning');
+		}
+
 		$model->findUpdates(0, $cache_timeout, $minimum_stability);
 		$this->setRedirect(JRoute::_('index.php?option=com_installer&view=update', false));
 	}

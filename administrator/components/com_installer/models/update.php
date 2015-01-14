@@ -3,7 +3,7 @@
  * @package     Joomla.Administrator
  * @subpackage  com_installer
  *
- * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -136,6 +136,27 @@ class InstallerModelUpdate extends JModelList
 		}
 
 		return $query;
+	}
+
+	/**
+	 * Get the count of disabled update sites
+	 *
+	 * @return  integer
+	 *
+	 * @since   3.4
+	 */
+	public function getDisabledUpdateSites()
+	{
+		$db = $this->getDbo();
+
+		$query = $db->getQuery(true)
+			->select('count(*)')
+			->from('#__update_sites')
+			->where('enabled = 0');
+
+		$db->setQuery($query);
+
+		return $db->loadResult();
 	}
 
 	/**
